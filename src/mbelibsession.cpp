@@ -404,7 +404,7 @@ size_t MBELibSession::decodeImbe7200x4400(char *frame, char* output) {
     }
 
     for (k = 0; k < 7; k++) {
-        int inpos = 137 + i;
+        int inpos = 137 + k;
         int pos = inpos / 8;
         int shift = 7 - inpos % 8;
 
