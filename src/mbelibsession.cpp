@@ -319,111 +319,52 @@ size_t MBELibSession::decodeAmbe2450(char *frame, char* output) {
 size_t MBELibSession::decodeImbe7200x4400(char *frame, char* output) {
 
     const int dW[18][8] = {
-        { 6, 6, 7, 7, 7, 7, 7, 7 }, { 5, 5, 5, 5, 6, 6, 6, 6 },
-        { 4, 4, 4, 4, 4, 4, 5, 5 }, { 2, 2, 3, 3, 3, 3, 3, 3 },
-        { 1, 1, 1, 1, 2, 2, 2, 2 }, { 0, 0, 0, 0, 0, 0, 1, 1 },
-        { 6, 6, 7, 7, 7, 7, 7, 7 }, { 5, 5, 5, 5, 6, 6, 6, 6 },
-        { 4, 4, 4, 4, 4, 4, 5, 5 }, { 2, 2, 3, 3, 3, 3, 3, 3 },
-        { 1, 1, 1, 1, 2, 2, 2, 2 }, { 0, 0, 0, 0, 0, 0, 1, 1 },
-        { 6, 6, 7, 7, 7, 7, 7, 7 }, { 5, 5, 5, 5, 6, 6, 6, 6 },
-        { 4, 4, 4, 4, 4, 4, 5, 5 }, { 2, 2, 3, 3, 3, 3, 3, 3 },
-        { 1, 1, 1, 1, 2, 2, 2, 2 }, { 0, 0, 0, 0, 0, 0, 1, 1 }
+        { 0, 1, 5, 4, 3, 2, 1, 0 }, { 3, 2, 1, 0, 4, 5, 2, 3 },
+        { 4, 6, 2, 3, 0, 1, 6, 4 }, { 0, 1, 6, 4, 3, 2, 1, 0 },
+        { 3, 2, 1, 0, 4, 6, 2, 3 }, { 4, 6, 2, 3, 0, 1, 6, 4 },
+        { 0, 1, 6, 4, 3, 2, 1, 0 }, { 3, 2, 1, 0, 4, 6, 2, 3 },
+        { 5, 6, 2, 3, 0, 1, 6, 4 }, { 0, 1, 6, 5, 3, 2, 1, 0 },
+        { 3, 2, 1, 0, 5, 6, 2, 3 }, { 5, 6, 2, 3, 0, 1, 6, 5 },
+        { 0, 1, 6, 5, 3, 2, 1, 0 }, { 3, 2, 1, 0, 5, 7, 2, 3 },
+        { 5, 7, 2, 3, 0, 1, 7, 5 }, { 0, 1, 7, 5, 4, 2, 1, 0 },
+        { 4, 3, 2, 0, 5, 7, 3, 4 }, { 5, 7, 3, 4, 1, 2, 7, 5 }
     };
     const int dX[18][8] = {
-        { 0, 3, 15, 12, 9, 6, 3, 0 }, { 9, 6, 3, 0, 12, 15, 6, 9 },
-        { 12, 15, 6, 9, 0, 3, 15, 12 }, { 0, 3, 15, 12, 9, 6, 3, 0 },
-        { 9, 6, 3, 0, 12, 15, 6, 9 }, { 12, 15, 6, 9, 0, 3, 15, 12 },
-        { 1, 4, 16, 13, 10, 7, 4, 1 }, { 10, 7, 4, 1, 13, 16, 7, 10 },
-        { 13, 16, 7, 10, 1, 4, 16, 13 }, { 1, 4, 16, 13, 10, 7, 4, 1 },
-        { 10, 7, 4, 1, 13, 16, 7, 10 }, { 13, 16, 7, 10, 1, 4, 16, 13 },
-        { 2, 5, 17, 14, 11, 8, 5, 2 }, { 11, 8, 5, 2, 14, 17, 8, 11 },
-        { 14, 17, 8, 11, 2, 5, 17, 14 }, { 2, 5, 17, 14, 11, 8, 5, 2 },
-        { 11, 8, 5, 2, 14, 17, 8, 11 }, { 14, 17, 8, 11, 2, 5, 17, 14 }
+        { 21, 20, 1, 10, 19, 20, 21, 22 }, { 17, 18, 19, 20, 9, 0, 19, 18 },
+        { 7, 13, 17, 16, 19, 18, 14, 8 }, { 17, 16, 12, 6, 15, 16, 17, 18 },
+        { 13, 14, 15, 16, 5, 11, 15, 14 }, { 3, 9, 13, 12, 15, 14, 10, 4 },
+        { 13, 12, 8, 2, 11, 12, 13, 14 }, { 9, 10, 11, 12, 1, 7, 11, 10 },
+        { 14, 5, 9, 8, 11, 10, 6, 0 }, { 9, 8, 4, 13, 7, 8, 9, 10 },
+        { 5, 6, 7, 8, 12, 3, 7, 6 }, { 10, 1, 5, 4, 7, 6, 2, 11 },
+        { 5, 4, 0, 9, 3, 4, 5, 6 }, { 1, 2, 3, 4, 8, 6, 3, 2 },
+        { 6, 4, 1, 0, 3, 2, 5, 7 }, { 1, 0, 3, 5, 14, 0, 1, 2 },
+        { 12, 21, 22, 0, 4, 2, 22, 13 }, { 2, 0, 20, 11, 22, 21, 1, 3 }
     };
 
-
-    // deinterleave
-    uint8_t voice_frame[18] = { 0 };
-
-    for (int i = 0; i < 18; ++i) {
-        const int *w = dW[i];
-        const int *x = dX[i];
-        unsigned char frameByte = frame[i];
-        voice_frame[x[0]] |= ((frameByte >> 0) & 0x01) << w[0];
-        voice_frame[x[1]] |= ((frameByte >> 1) & 0x01) << w[1];
-        voice_frame[x[2]] |= ((frameByte >> 2) & 0x01) << w[2];
-        voice_frame[x[3]] |= ((frameByte >> 3) & 0x01) << w[3];
-        voice_frame[x[4]] |= ((frameByte >> 4) & 0x01) << w[4];
-        voice_frame[x[5]] |= ((frameByte >> 5) & 0x01) << w[5];
-        voice_frame[x[6]] |= ((frameByte >> 6) & 0x01) << w[6];
-        voice_frame[x[7]] |= ((frameByte >> 7) & 0x01) << w[7];
-    }
-
-    // descramble voice frame
-    uint16_t seed = (voice_frame[0] << 8) | (voice_frame[1] & 0xF0);
-    uint32_t v = seed;
-    uint8_t mask = 0;
-    for (uint16_t i = 23; i < 144 - 7; i++) {
-        v = ((v * 173) + 13849) & 0xffff;
-        mask = (mask << 1) | (v >> 15);
-        if (i % 8 == 7) {
-            voice_frame[i / 8] ^= mask;
-            mask = 0;
-        }
-    }
 
     char imbe_fr[8][23] = { 0 };
     char imbe_d[88] = { 0 };
 
-
-    // let's ignore error correction for a moment here...
-
-    int i, k;
-    for (i = 0; i < 4; i++) {
-        for (k = 0; k < 12; k++) {
-            int inpos = (i * 23 + k);
-            int pos = inpos / 8;
-            int shift = 7 - inpos % 8;
-
-            int outpos = i * 12 + k;
-
-            imbe_d[outpos] = (voice_frame[pos] >> shift) & 1;
-        }
-    }
-
-    for (i = 0; i < 3; i++) {
-        for (k = 0; k < 11; k++) {
-            int inpos = 92 + (i * 23 + k);
-            int pos = inpos / 8;
-            int shift = 7 - inpos % 8;
-
-            int outpos = 48 + i * 12 + k;
-
-            imbe_d[outpos] = (voice_frame[pos] >> shift) & 1;
-        }
-    }
-
-    for (k = 0; k < 7; k++) {
-        int inpos = 137 + k;
-        int pos = inpos / 8;
-        int shift = 7 - inpos % 8;
-
-        int outpos = 81 + k;
-
-        imbe_d[outpos] = (voice_frame[pos] >> shift) & 1;
+    // deinterleave
+    for (int i = 0; i < 18; ++i) {
+        const int *w = dW[i];
+        const int *x = dX[i];
+        unsigned char frameByte = frame[i];
+        imbe_fr[w[0]][x[0]] = (frameByte >> 0) & 0x01;
+        imbe_fr[w[1]][x[1]] = (frameByte >> 1) & 0x01;
+        imbe_fr[w[2]][x[2]] = (frameByte >> 2) & 0x01;
+        imbe_fr[w[3]][x[3]] = (frameByte >> 3) & 0x01;
+        imbe_fr[w[4]][x[4]] = (frameByte >> 4) & 0x01;
+        imbe_fr[w[5]][x[5]] = (frameByte >> 5) & 0x01;
+        imbe_fr[w[6]][x[6]] = (frameByte >> 6) & 0x01;
+        imbe_fr[w[7]][x[7]] = (frameByte >> 7) & 0x01;
     }
 
     int errs = 0;
     int errs2 = 0;
     char err_str[64];
-    mbe_processImbe4400Data((short*) output, &errs, &errs2, err_str, imbe_d, curr_mp, prev_mp, prev_mp_enhanced, unvoiced_quality);
-//    if (errs || errs2 || err_str[0])
-//        std::cerr << "mbe_processImbe4400Data - errs=" << errs << " - errs2=" << errs2 << " - err_str=\"" << err_str << "\"\n";
-// no error correction for now
-#if 0
     mbe_processImbe7200x4400Frame((short*) output, &errs, &errs2, err_str, imbe_fr, imbe_d, curr_mp, prev_mp, prev_mp_enhanced, unvoiced_quality);
 //    if (errs || errs2 || err_str[0])
 //        std::cerr << "mbe_processImbe7200x4400Frame - errs=" << errs << " - errs2=" << errs2 << " - err_str=\"" << err_str << "\"\n";
-#endif
     return audioSize;
 }
