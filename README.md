@@ -14,6 +14,13 @@ This module currently supports the following Digital Voice protocols:
 
 Prerequisites for building this module are a successful build and install of both OpenWebRX Codec Server and mbelib. Please follow the instructions in the links provided above to build and install both dependencies.
 
+_IMPORTANT_: OpenWebRX Code Server requires the system account 'codecserver' in order to run; that account is very likely not on your system the first time you run codecserver. To create that system account you can use a command like this:
+```
+sudo useradd -r -d /nonexistent -c 'OpenWebRX Codec Server' codecserver
+```
+
+Once all the prerequisites are built, installed, and running as expected, these are the steps to build and install 'codecserver-build-module':
+
 ```
 git clone https://github.com/fventuri/codecserver-mbelib-module.git
 cd codecserver-mbelib-module
