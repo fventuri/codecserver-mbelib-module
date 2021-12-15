@@ -45,6 +45,11 @@ sudo systemctl restart codecserver
 ```
 
 
+## Related work
+
+Another piece of software very similar to this one developed by knatterfunker is [codecserver-softmbe](https://github.com/knatterfunker/codecserver-softmbe).
+
+
 ## Credits
 
 - Many thanks to Jakob Ketterl, DD5JFK for all his hard work on OpenWebRX and Codec Server, and especially for digiham version 0.4 (https://github.com/jketterl/digiham/tree/release-0.4); all the parameters for deinterleaving and descrambling the various Digital Voice protocols come from that version of digiham.
@@ -53,4 +58,4 @@ sudo systemctl restart codecserver
 
 ## Copyright
 
-(C) 2021 Franco Venturi - Licensed under the GNU GPL V3 (see &lt;LICENSE&gt;)
+(C) 2021 Franco Venturi - Licensed under the GNU GPL V3 (see [LICENSE](LICENSE))
