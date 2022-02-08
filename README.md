@@ -12,6 +12,8 @@ This module currently supports the following Digital Voice protocols:
 
 ## How to build
 
+NOTE: for detailed instructios on on how to build and install this Codec Server module on the OpenWebRX Raspberry Pi images, please see the section 'How to build - OpenWebRX Raspberry Pi images' below.
+
 Prerequisites for building this module are a successful build and install of both OpenWebRX Codec Server and mbelib. Please follow the instructions in the links provided above to build and install both dependencies.
 
 _IMPORTANT_: OpenWebRX Code Server requires the system account 'codecserver' in order to run; that account is very likely not on your system the first time you run codecserver. To create that system account you can use a command like this:
@@ -41,6 +43,50 @@ If you already have a Codec Server configuration file, just append the '[device:
 
 Finally restart OpenWebRX Codec Server service:
 ```
+sudo systemctl restart codecserver
+```
+
+
+## How to build - OpenWebRX Raspberry Pi images
+
+Since the OpenWebRX Raspberry Pi images already contain Codec Server, some of the steps above are not needed (and other steps are slightly different).
+
+For those who want to add this module to an existing OpenWebRX Raspberry Pi image, these are the exact steps and commands I used on mine:
+
+```
+(assign IP address)
+(enable SSH)
+(remote login as user pi)
+
+sudo apt update
+sudo apt full-upgrade
+sudo reboot
+
+(after reboot)
+
+git clone https://github.com/szechyjs/mbelib.git
+cd mbelib
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd
+sudo ldconfig
+
+sudo apt install libcodecserver-dev libprotobuf-dev protobuf-compiler
+
+git clone https://github.com/fventuri/codecserver-mbelib-module.git
+cd codecserver-mbelib-module
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_LIBDIR='/usr/lib/arm-linux-gnueabihf' ..
+make
+sudo make install
+cd
+sudo ldconfig
+
+{ echo; echo '[device:mbelib]'; echo 'driver=mbelib'; echo 'unvoiced_quality=3'; } | sudo tee -a /etc/codecserver/codecserver.conf
 sudo systemctl restart codecserver
 ```
 
