@@ -12,7 +12,7 @@ This module currently supports the following Digital Voice protocols:
 
 ## How to build
 
-NOTE: for detailed instructios on on how to build and install this Codec Server module on the OpenWebRX Raspberry Pi images, please see the section 'How to build - OpenWebRX Raspberry Pi images' below.
+NOTE: for detailed instructios on on how to build and install this Codec Server module on the OpenWebRX Raspberry Pi images, please see the section [How to build - OpenWebRX Raspberry Pi images](#how-to-build---openwebrx-raspberry-pi-images) below.
 
 Prerequisites for building this module are a successful build and install of both OpenWebRX Codec Server and mbelib. Please follow the instructions in the links provided above to build and install both dependencies.
 
